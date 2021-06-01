@@ -1,0 +1,33 @@
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedJob
+metadata:
+  name: test-job
+  namespace: test-namespace
+spec:
+  template:
+    spec:
+      parallelism: 1
+      selector:
+        matchLabels:
+          app: busybox
+      manualSelector: true
+      template:
+        metadata:
+          labels:
+            app: busybox
+        spec:
+          terminationGracePeriodSeconds: 0
+          restartPolicy: Never
+          containers:
+            - name: busybox
+              image: busybox
+              command: ["/bin/sh", "-c", "trap : TERM INT; (while true; do sleep 1000; done) & wait"]
+  placement:
+    clusters:
+    - name: cluster2
+    - name: cluster1
+  overrides:
+  - clusterName: cluster2
+    clusterOverrides:
+    - path: /spec/parallelism
+      value: 2

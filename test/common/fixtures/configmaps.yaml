@@ -1,0 +1,9 @@
+kind: fixture
+template:
+  data:
+    foo: bar
+overrides:
+  - clusterOverrides:
+      - path: /data
+        value:
+          foo: baz

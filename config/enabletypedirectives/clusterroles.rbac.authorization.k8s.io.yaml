@@ -1,0 +1,4 @@
+apiVersion: core.kubefed.io/v1beta1
+kind: EnableTypeDirective
+metadata:
+  name: clusterroles.rbac.authorization.k8s.io

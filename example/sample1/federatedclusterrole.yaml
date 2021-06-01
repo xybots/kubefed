@@ -1,0 +1,17 @@
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedClusterRole
+metadata:
+  name: test-clusterrole
+spec:
+  template:
+    rules:
+    - apiGroups:
+      - '*'
+      resources:
+      - '*'
+      verbs:
+      - '*'
+  placement:
+    clusters:
+    - name: cluster2
+    - name: cluster1

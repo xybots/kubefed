@@ -1,0 +1,22 @@
+version: 2.1
+
+orbs:
+  helm: banzaicloud/helm@0.0.7
+
+
+workflows:
+    helm-chart:
+        jobs:
+            -   helm/lint-chart:
+                    filters:
+                        tags:
+                            ignore: /.*/
+
+            -   helm/publish-chart:
+                    context: helm
+                    charts-dir: charts
+                    filters:
+                        branches:
+                            ignore: /.*/
+                        tags:
+                            only: /chart\/kubefed\/\d+.\d+.\d+(-.*)?/
